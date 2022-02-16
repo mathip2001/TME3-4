@@ -1,0 +1,10 @@
+{
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "assert.h": "c",
+        "bibliolc.h": "c",
+        "entreesortielc.h": "c",
+        "stdio.h": "c",
+        "biblioh.h": "c"
+    }
+}
