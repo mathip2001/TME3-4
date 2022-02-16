@@ -6,7 +6,7 @@
 void menu()
 {
     printf("0 - Sortie du programme\n");
-    printf("1 - Affichage\n");
+    printf("1 - Affichage de la bibliotheque\n");
     printf("2 - Inserer un ouvrage\n");
     printf("3 - Rechercher un ouvrage par son numero\n");
     printf("4 - Rechercher un ouvrage par son titre\n");
@@ -84,10 +84,11 @@ int main(int argc, char **argv)
         menu();
         fgets(buff, BUFFER_SIZE, stdin);
         sscanf(buff, "%d\n", &rep);
+        printf("\n");
         switch (rep)
         {
         case 1:
-            printf("Affichage\n");
+            printf("Affichage de la bibliotheque : \n");
             affichage_Biblio(b);
             printf("\n");
             printf("-------------------------------------------------------------------------------------------\n");
@@ -123,11 +124,22 @@ int main(int argc, char **argv)
             if (cpt == 1)
             {
                 Livre *l = recherche_ouvrage_num(b, num);
-                printf("Voici l'ouvrage recherche\n");
-                affichage_Livre(l);
-                printf("\n");
-                printf("-------------------------------------------------------------------------------------------\n");
-                printf("\n");
+                if (l == NULL)
+                {
+
+                    printf("L'ouvrage n'existe pas dans la bibliotheque\n");
+                    printf("\n");
+                    printf("-------------------------------------------------------------------------------------------\n");
+                    printf("\n");
+                }
+                else
+                {
+                    printf("Voici l'ouvrage recherche\n");
+                    affichage_Livre(l);
+                    printf("\n");
+                    printf("-------------------------------------------------------------------------------------------\n");
+                    printf("\n");
+                }
             }
             else
             {
@@ -144,12 +156,24 @@ int main(int argc, char **argv)
             cpt = sscanf(buff, "%s\n", titre);
             if (cpt == 1)
             {
+
                 Livre *l = recherche_ouvrage_titre(b, titre);
-                printf("Voici l'ouvrage recherche\n");
-                affichage_Livre(l);
-                printf("\n");
-                printf("-------------------------------------------------------------------------------------------\n");
-                printf("\n");
+                if (l == NULL)
+                {
+
+                    printf("L'ouvrage n'existe pas dans la bibliotheque\n");
+                    printf("\n");
+                    printf("-------------------------------------------------------------------------------------------\n");
+                    printf("\n");
+                }
+                else
+                {
+                    printf("Voici l'ouvrage recherche\n");
+                    affichage_Livre(l);
+                    printf("\n");
+                    printf("-------------------------------------------------------------------------------------------\n");
+                    printf("\n");
+                }
             }
             else
             {
@@ -167,11 +191,22 @@ int main(int argc, char **argv)
             if (cpt == 1)
             {
                 Biblio *bauteur = recherche_livres_auteur(b, auteur);
-                printf("Voici les ouvrages ecrits par %s\n", auteur);
-                affichage_Biblio(bauteur);
-                printf("\n");
-                printf("-------------------------------------------------------------------------------------------\n");
-                printf("\n");
+                if (b == NULL)
+                {
+
+                    printf("Les ouvrages de l'auteur selectionne n'existent pas dans la bibliotheque\n");
+                    printf("\n");
+                    printf("-------------------------------------------------------------------------------------------\n");
+                    printf("\n");
+                }
+                else
+                {
+                    printf("Voici les ouvrages ecrits par %s\n", auteur);
+                    affichage_Biblio(bauteur);
+                    printf("\n");
+                    printf("-------------------------------------------------------------------------------------------\n");
+                    printf("\n");
+                }
             }
             else
             {
@@ -226,10 +261,18 @@ int main(int argc, char **argv)
                 {
                     Biblio *b1 = charger_n_entrees(fichier1, nb1);
                     Biblio *b2 = charger_n_entrees(fichier2, nb2);
-                    fusion(b1, b2);
-                    printf("Fusion avec succes\n");
-                    printf("Affichage\n");
-                    affichage_Biblio(b1);
+                    if ((b1 != NULL) && (b2 != NULL))
+                    {
+                        fusion(b1, b2);
+                        printf("Fusion avec succes\n");
+                        printf("Affichage des livres\n");
+                        affichage_Biblio(b1);
+                        b = b1;
+                    }
+                    else
+                    {
+                        printf("La fusion n'a pas abouti\n");
+                    }
                     printf("\n");
                     printf("-------------------------------------------------------------------------------------------\n");
                     printf("\n");

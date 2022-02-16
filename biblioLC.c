@@ -234,9 +234,9 @@ Biblio *recherche_exemplaires(Biblio *b)
     return tmp;
 }
 
-Biblio *recherche_exemplaires_bis(Biblio *b)
+/*Biblio *recherche_exemplaires_bis(Biblio *b)
 {
     if (b == NULL)
     {
         return NULL;
-    }
+    }*/
