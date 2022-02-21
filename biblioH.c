@@ -15,11 +15,18 @@ int fonctionClef(char *auteur)
     return hash_value;
 }
 
+<<<<<<< HEAD
+LivreH *creer_livre(int num, char *titre, char *auteur)
+{
+    LivreH *livre = (LivreH *)malloc(sizeof(LivreH));
+    assert(livre);
+=======
 // Create new node
 LivreH *creer_livre(int num, char *titre, char *auteur)
 {
     LivreH *livre;
     livre = (LivreH *)malloc(sizeof(LivreH));
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
     livre->clef = fonctionClef(auteur);
     livre->num = num;
     livre->titre = strdup(titre);
@@ -31,13 +38,23 @@ LivreH *creer_livre(int num, char *titre, char *auteur)
 void liberer_livre(LivreH *l)
 {
     if (l == NULL)
+    {
         return;
+    }
     free(l->titre);
     free(l->auteur);
     free(l);
     l = NULL;
 }
 
+<<<<<<< HEAD
+// a checker
+BiblioH *creer_biblio(int m)
+{
+    BiblioH *biblio = (BiblioH *)malloc(sizeof(BiblioH));
+    LivreH **hash_table = malloc(sizeof(LivreH *) * m);
+
+=======
 BiblioH *creer_biblio(int m)
 {
     BiblioH *biblio;
@@ -45,6 +62,7 @@ BiblioH *creer_biblio(int m)
 
     biblio = (BiblioH *)malloc(sizeof(BiblioH));
     hash_table = malloc(sizeof(LivreH *) * m);
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
     for (int i = 0; i < m; i++)
     {
         hash_table[i] = malloc(sizeof(LivreH));
@@ -56,6 +74,37 @@ BiblioH *creer_biblio(int m)
     return biblio;
 }
 
+<<<<<<< HEAD
+// fuite de memoire
+void liberer_biblio(BiblioH *b)
+{
+    if (b == NULL)
+    {
+        return;
+    }
+    if (b->T == NULL)
+    {
+        free(b);
+        return;
+    }
+
+    LivreH **hash_table = b->T;
+    LivreH *tmp;
+
+    for (int i = 0; i < b->m; i++)
+    {
+        if (hash_table[i] != NULL)
+        {
+            while (hash_table[i] != NULL)
+            {
+                tmp = hash_table[i];
+                hash_table[i] = hash_table[i]->suivant;
+                liberer_livre(tmp);
+            }
+        }
+    }
+    // free(b);
+=======
 void liberer_biblio(BiblioH *b)
 {
     LivreH **hash_table;
@@ -80,15 +129,35 @@ void liberer_biblio(BiblioH *b)
             }
         }
     }
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
 }
 
 int fonctionHachage(int cle, int m)
 {
+<<<<<<< HEAD
+    return (int)(m * (cle * NOMBRE_OR - (int)(cle * NOMBRE_OR)));
+=======
     return (m * (cle * NOMBRE_OR - (int)(cle * NOMBRE_OR)));
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
 }
 
 void inserer(BiblioH *b, int num, char *titre, char *auteur)
 {
+<<<<<<< HEAD
+    LivreH *l = creer_livre(num, titre, auteur);
+    int i = fonctionHachage(fonctionClef(auteur), b->m);
+
+    if ((b->T)[i] == NULL)
+    {
+        (b->T)[i] = l;
+    }
+    else
+    {
+        l->suivant = (b->T)[i];
+        (b->T)[i] = l;
+    }
+    b->nE = (b->nE) + 1;
+=======
     LivreH *livre_to_insert;
     int location;
 
@@ -108,10 +177,39 @@ void inserer(BiblioH *b, int num, char *titre, char *auteur)
         (b->T)[location] = livre_to_insert;
     }
     b->nE = b->nE + 1;
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
 }
 
 void affichage_livre_hashtable(LivreH *l)
 {
+<<<<<<< HEAD
+    if (l == NULL)
+    {
+        return;
+    }
+    printf("%d %d %s %s\n", l->clef, l->num, l->titre, l->auteur);
+}
+
+// a checker mais OK
+void affichage_biblio_hashtable(BiblioH *b)
+{
+    if (b == NULL)
+    {
+        return;
+    }
+
+    LivreH *l;
+    for (int i = 0; i < b->m; i++)
+    {
+        if ((b->T)[i] != NULL) //???
+        {
+            l = (b->T)[i];
+            while (l != NULL)
+            {
+                printf("Pos %d ", i);
+                affichage_livre_hashtable(l);
+                l = l->suivant;
+=======
     // Check if need to print clef
     if (l == NULL)
         return;
@@ -136,10 +234,15 @@ void affichage_biblio_hashtable(BiblioH *b)
                 printf("Pos %d ", i);
                 affichage_livre_hashtable(crawler);
                 crawler = crawler->suivant;
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
             }
         }
         else
         {
+<<<<<<< HEAD
+            // case contenant NULL
+=======
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
             printf("Pos %d\t--------------\n", i);
         }
     }
@@ -203,11 +306,25 @@ BiblioH *recherche_livres_auteur_hashtable(BiblioH *b, char *auteur)
     BiblioH *biblio = creer_biblio(1);
     int clef = fonctionClef(auteur);
     int hash_value = fonctionHachage(clef, b->m);
+<<<<<<< HEAD
+    LivreH *l = (b->T)[hash_value];
+=======
     LivreH *crawler = (b->T)[hash_value];
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
     if (b == NULL)
     {
         return NULL;
     }
+<<<<<<< HEAD
+    l = (b->T)[hash_value];
+    while (l)
+    {
+        if (clef == l->clef)
+        {
+            inserer(biblio, l->num, l->titre, l->auteur);
+        }
+        l = l->suivant;
+=======
     crawler = (b->T)[hash_value];
     while (crawler)
     {
@@ -216,6 +333,7 @@ BiblioH *recherche_livres_auteur_hashtable(BiblioH *b, char *auteur)
             inserer(biblio, crawler->num, crawler->titre, crawler->auteur);
         }
         crawler = crawler->suivant;
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
     }
 
     return biblio;
@@ -223,6 +341,31 @@ BiblioH *recherche_livres_auteur_hashtable(BiblioH *b, char *auteur)
 
 void supprimer_ouvrage_hashtable(BiblioH *b, int num, char *titre, char *auteur)
 {
+<<<<<<< HEAD
+    if (b == NULL)
+    {
+        return;
+    }
+    LivreH *tmp = NULL;
+    LivreH *pred = NULL;
+
+    int position = fonctionHachage(fonctionClef(auteur), b->m);
+    tmp = b->T[position];
+    while (tmp && (tmp->num != num) && (strcmp(tmp->titre, titre) != 0) && (strcmp(tmp->auteur, auteur) != 0))
+    {
+        pred = tmp;
+        tmp = tmp->suivant;
+    }
+    if (!pred)
+    {
+        b->T[position] = (b->T[position])->suivant;
+        return;
+    }
+    else
+        pred->suivant = tmp->suivant;
+
+    liberer_livre(tmp);
+=======
     int hash_value = fonctionHachage(fonctionClef(auteur), b->m);
     LivreH *n;
     LivreH *prec;
@@ -253,10 +396,30 @@ void supprimer_ouvrage_hashtable(BiblioH *b, int num, char *titre, char *auteur)
             }
         }
     }
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
 }
 
 void fusion_hashtable(BiblioH *b1, BiblioH *b2)
 {
+<<<<<<< HEAD
+    if ((b1 == NULL) && (b2 == NULL))
+    {
+        return;
+    }
+
+    LivreH *tmp = NULL;
+    int i;
+    for (i = 0; i < b2->m; i++)
+    {
+        tmp = b2->T[i];
+        while (tmp)
+        {
+            inserer(b1, tmp->num, tmp->titre, tmp->auteur);
+            tmp = tmp->suivant;
+        }
+    }
+    liberer_biblio(b2);
+=======
     LivreH *livreListe;
     if ((b1 == NULL) || (b2 == NULL) || (b1->T == NULL) || (b2->T == NULL))
     {
@@ -278,6 +441,7 @@ void fusion_hashtable(BiblioH *b1, BiblioH *b2)
     liberer_biblio(b2);
 
     printf("Nombre element reel 1 %d\n", b1->nE);
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
 }
 
 BiblioH *recherche_exemplaires_hashtable(BiblioH *b)

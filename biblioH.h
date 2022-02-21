@@ -25,8 +25,15 @@ int fonctionClef(char *auteur);
 LivreH *creer_livre(int num, char *titre, char *auteur);
 void liberer_livre(LivreH *l);
 BiblioH *creer_biblio(int m);
+<<<<<<< HEAD
+void liberer_biblio(BiblioH *b);
 int fonctionHachage(int cle, int m);
 void inserer(BiblioH *b, int num, char *titre, char *auteur);
+
+=======
+int fonctionHachage(int cle, int m);
+void inserer(BiblioH *b, int num, char *titre, char *auteur);
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
 void affichage_livre_hashtable(LivreH *l);
 void affichage_biblio_hashtable(BiblioH *b);
 LivreH *recherche_ouvrage_num_hashtable(BiblioH *b, int num);

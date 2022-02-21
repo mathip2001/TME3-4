@@ -1,8 +1,12 @@
 CFLAGS = -g -Wall -Wextra -pedantic -Werror
 CC = gcc
 
+<<<<<<< HEAD
+PROGRAMS = main_hash main_tests
+=======
 # PROGRAMS = main_tests
 PROGRAMS = main_hash
+>>>>>>> f3980f87c1646cb3c643da43eba52a141f289d2e
 
 
 .PHONY:	all clean
